@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>未来科技 - 服务订购</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#165DFF',
+            secondary: '#0FC6C2',
+            accent: '#722ED1',
+            dark: '#1D2129',
+            light: '#F2F3F5'
+          },
+          fontFamily: {
+            inter: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .text-shadow-lg {
+        text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
+      }
+      .bg-gradient-primary {
+        background: linear-gradient(135deg, #165DFF 0%, #722ED1 100%);
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+      }
+    }
+  </style>
+</head>
+<body class="font-inter text-dark bg-light">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16 md:h-20">
+        <div class="flex items-center">
+          <a href="index.html" class="flex items-center space-x-2">
+            <div class="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center">
+              <span class="text-white font-bold text-xl">FT</span>
+            </div>
+            <span class="text-xl font-bold text-dark">未来科技</span>
+          </a>
+        </div>
+        
+        <!-- 桌面导航 -->
+        <nav class="hidden md:flex space-x-8">
+          <a href="index.html#about" class="text-dark hover:text-primary transition-colors font-medium">关于我们</a>
+          <a href="index.html#culture" class="text-dark hover:text-primary transition-colors font-medium">企业文化</a>
+          <a href="index.html#values" class="text-dark hover:text-primary transition-colors font-medium">企业价值观</a>
+          <a href="index.html#products" class="text-dark hover:text-primary transition-colors font-medium">产品服务</a>
+          <a href="index.html#contact" class="text-dark hover:text-primary transition-colors font-medium">联系我们</a>
+        </nav>
+        
+        <div class="flex items-center space-x-4">
+          <a href="#" class="hidden md:block px-5 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+            立即下单
+          </a>
+          
+          <!-- 移动端菜单按钮 -->
+          <button id="menu-toggle" class="md:hidden text-dark hover:text-primary">
+            <i class="fa fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 shadow-lg">
+      <div class="container mx-auto px-4 py-3 space-y-2">
+        <a href="index.html#about" class="block py-2 text-dark hover:text-primary transition-colors">关于我们</a>
+        <a href="index.html#culture" class="block py-2 text-dark hover:text-primary transition-colors">企业文化</a>
+        <a href="index.html#values" class="block py-2 text-dark hover:text-primary transition-colors">企业价值观</a>
+        <a href="index.html#products" class="block py-2 text-dark hover:text-primary transition-colors">产品服务</a>
+        <a href="index.html#contact" class="block py-2 text-dark hover:text-primary transition-colors">联系我们</a>
+        <a href="#" class="block py-2 text-primary font-medium">立即下单</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-primary/5 to-accent/5">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold leading-tight text-dark mb-4">
+          服务 <span class="text-primary">订购</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          选择适合您的解决方案，填写订单信息，我们的专业团队将尽快与您联系
+        </p>
+        <a href="#order-form" class="inline-flex items-center px-8 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1 font-medium">
+          开始订购 <i class="fa fa-arrow-down ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 服务选择 -->
+  <section id="service-selection" class="py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-dark mb-4">选择您需要的服务</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">我们提供多种技术解决方案，满足不同客户的需求</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group border border-gray-100 hover:border-primary/30 cursor-pointer" data-service="ai">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=4" alt="人工智能解决方案" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-xl font-bold text-dark">人工智能解决方案</h3>
+              <div class="text-primary font-bold">¥29,800起</div>
+            </div>
+            <p class="text-gray-600 mb-6">
+              基于深度学习技术，为企业提供智能客服、图像识别、自然语言处理等AI应用解决方案。
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">智能客服</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">图像识别</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">NLP</span>
+            </div>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              了解详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group border border-gray-100 hover:border-primary/30 cursor-pointer" data-service="bigdata">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=5" alt="大数据分析平台" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-xl font-bold text-dark">大数据分析平台</h3>
+              <div class="text-primary font-bold">¥39,800起</div>
+            </div>
+            <p class="text-gray-600 mb-6">
+              提供数据采集、存储、处理和分析的一站式解决方案，帮助企业从海量数据中挖掘价值。
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">数据采集</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">数据分析</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">数据可视化</span>
+            </div>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              了解详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all group border border-gray-100 hover:border-primary/30 cursor-pointer" data-service="cloud">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/600/400?random=6" alt="云计算服务" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-xl font-bold text-dark">云计算服务</h3>
+              <div class="text-primary font-bold">¥19,800起</div>
+            </div>
+            <p class="text-gray-600 mb-6">
+              提供弹性计算、存储和网络服务，帮助企业降低IT基础设施成本，提高灵活性和可扩展性。
+            </p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">弹性计算</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">云存储</span>
+              <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">网络服务</span>
+            </div>
+            <a href="#" class="inline-flex items-center text-primary font-medium hover:underline">
+              了解详情 <i class="fa fa-arrow-right ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 bg-white rounded-xl p-8 shadow-md">
+        <h3 class="text-xl font-bold text-dark mb-6">定制解决方案</h3>
+        <p class="text-gray-600 mb-6">
+          如果您有特殊需求，我们可以为您提供定制化的解决方案。请在订单中详细描述您的需求，我们的专业团队将为您提供个性化的报价。
+        </p>
+        <div class="flex items-center justify-center">
+          <a href="#order-form" class="inline-flex items-center px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium">
+            申请定制方案 <i class="fa fa-arrow-right ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 订购表单 -->
+  <section id="order-form" class="py-16 md:py-24 bg-light">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-dark mb-4">填写订购信息</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">请填写以下信息，我们的专业团队将尽快与您联系</p>
+      </div>
+      
+      <div class="max-w-4xl mx-auto bg-white rounded-xl p-8 md:p-12 shadow-lg">
+        <form id="orderForm" class="space-y-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="company" class="block text-gray-700 font-medium mb-2">公司名称</label>
+              <input type="text" id="company" name="company" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" placeholder="请输入您的公司名称" required>
+            </div>
+            
+            <div>
+              <label for="industry" class="block text-gray-700 font-medium mb-2">所属行业</label>
+              <select id="industry" name="industry" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" required>
+                <option value="">请选择行业</option>
+                <option value="manufacturing">制造业</option>
+                <option value="finance">金融</option>
+                <option value="retail">零售</option>
+                <option value="healthcare">医疗健康</option>
+                <option value="education">教育</option>
+                <option value="technology">科技</option>
+                <option value="other">其他</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="contact-person" class="block text-gray-700 font-medium mb-2">联系人姓名</label>
+              <input type="text" id="contact-person" name="contact-person" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" placeholder="请输入联系人姓名" required>
+            </div>
+            
+            <div>
+              <label for="contact-title" class="block text-gray-700 font-medium mb-2">职位</label>
+              <input type="text" id="contact-title" name="contact-title" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" placeholder="请输入联系人职位" required>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="phone" class="block text-gray-700 font-medium mb-2">联系电话</label>
+              <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" placeholder="请输入联系电话" required>
+            </div>
+            
+            <div>
+              <label for="email" class="block text-gray-700 font-medium mb-2">电子邮箱</label>
+              <input type="email" id="email" name="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" placeholder="请输入电子邮箱" required>
+            </div>
+          </div>
+          
+          <div>
+            <label for="service-type" class="block text-gray-700 font-medium mb-2">选择服务类型</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="flex items-center">
+                <input type="radio" id="service-ai" name="service-type" value="ai" class="w-5 h-5 text-primary focus:ring-primary/20" required>
+                <label for="service-ai" class="ml-3 text-gray-700">人工智能解决方案</label>
+              </div>
+              <div class="flex items-center">
+                <input type="radio" id="service-bigdata" name="service-type" value="bigdata" class="w-5 h-5 text-primary focus:ring-primary/20">
+                <label for="service-bigdata" class="ml-3 text-gray-700">大数据分析平台</label>
+              </div>
+              <div class="flex items-center">
+                <input type="radio" id="service-cloud" name="service-type" value="cloud" class="w-5 h-5 text-primary focus:ring-primary/20">
+                <label for="service-cloud" class="ml-3 text-gray-700">云计算服务</label>
+              </div>
+            </div>
+            <div class="mt-4">
+              <div class="flex items-center">
+                <input type="radio" id="service-custom" name="service-type" value="custom" class="w-5 h-5 text-primary focus:ring-primary/20">
+                <label for="service-custom" class="ml-3 text-gray-700">定制解决方案</label>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <label for="project-details" class="block text-gray-700 font-medium mb-2">项目详情</label>
+            <textarea id="project-details" name="project-details" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all resize-none" placeholder="请详细描述您的项目需求、期望目标以及特殊要求等" required></textarea>
+          </div>
+          
+          <div>
+            <label for="budget" class="block text-gray-700 font-medium mb-2">预算范围</label>
+            <select id="budget" name="budget" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" required>
+              <option value="">请选择预算范围</option>
+              <option value="10k-50k">10万-50万</option>
+              <option value="50k-100k">50万-100万</option>
+              <option value="100k-500k">100万-500万</option>
+              <option value="500k-1m">500万-1000万</option>
+              <option value="1m+">1000万以上</option>
+              <option value="negotiable">面议</option>
+            </select>
+          </div>
+          
+          <div>
+            <label for="timeline" class="block text-gray-700 font-medium mb-2">期望实施时间</label>
+            <select id="timeline" name="timeline" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary focus:ring focus:ring-primary/20 outline-none transition-all" required>
+              <option value="">请选择期望实施时间</option>
+              <option value="1month">1个月内</option>
+              <option value="1-3months">1-3个月</option>
+              <option value="3-6months">3-6个月</option>
+              <option value="6-12months">6-12个月</option>
+              <option value="12months+">12个月以上</option>
+            </select>
+          </div>
+          
+          <div class="flex items-start">
+            <input type="checkbox" id="privacy-policy" name="privacy-policy" class="w-5 h-5 text-primary focus:ring-primary/20 mt-1" required>
+            <label for="privacy-policy" class="ml-3 text-gray-700">
+              我已阅读并同意<a href="#" class="text-primary hover:underline">隐私政策</a>和<a href="#" class="text-primary hover:underline">服务条款</a>
+            </label>
+          </div>
+          
+          <div class="pt-4">
+            <button type="submit" class="w-full px-6 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 font-medium text-lg">
+              提交订单
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 常见问题 -->
+  <section class="py-16 md:py-24">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-[clamp(1.8rem,4vw,3rem)] font-bold text-dark mb-4">常见问题</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto text-lg">了解更多关于我们服务的常见问题和解答</p>
+      </div>
+      
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-4">
+          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <button class="faq-toggle w-full px-6 py-4 text-left font-medium text-dark flex justify-between items-center">
+              <span>如何选择适合我企业的解决方案？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-content px-6 py-4 border-t border-gray-100 hidden">
+              <p class="text-gray-600">
+                我们的专业团队会根据您企业的具体需求、行业特点和业务目标，为您提供个性化的解决方案建议。您可以通过填写订购表单或直接联系我们，我们将安排专业顾问与您沟通，了解您的需求并提供最适合的解决方案。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <button class="faq-toggle w-full px-6 py-4 text-left font-medium text-dark flex justify-between items-center">
+              <span>服务实施周期是多久？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-content px-6 py-4 border-t border-gray-100 hidden">
+              <p class="text-gray-600">
+                服务实施周期根据项目的复杂程度和规模不同而有所差异。一般来说，基础解决方案的实施周期为1-3个月，复杂的定制化解决方案可能需要3-6个月或更长时间。我们会在项目启动前与您详细沟通并制定明确的项目计划和时间表。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <button class="faq-toggle w-full px-6 py-4 text-left font-medium text-dark flex justify-between items-center">
+              <span>是否提供售后服务和技术支持？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-content px-6 py-4 border-t border-gray-100 hidden">
+              <p class="text-gray-600">
+                是的，我们提供全面的售后服务和技术支持。服务交付后，我们会提供一定期限的免费维护期，并根据您的需求提供长期的技术支持服务。我们的技术支持团队7×24小时为您提供服务，确保您的系统稳定运行。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <button class="faq-toggle w-full px-6 py-4 text-left font-medium text-dark flex justify-between items-center">
+              <span>如何支付服务费用？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-content px-6 py-4 border-t border-gray-100 hidden">
+              <p class="text-gray-600">
+                我们支持多种支付方式，包括银行转账、支付宝、微信支付等。对于大型项目，我们通常采用分阶段付款的方式，根据项目里程碑进行支付。具体的支付方式和条款会在合同中明确规定。
+              </p>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <button class="faq-toggle w-full px-6 py-4 text-left font-medium text-dark flex justify-between items-center">
+              <span>是否可以根据企业需求定制解决方案？</span>
+              <i class="fa fa-chevron-down text-primary transition-transform"></i>
+            </button>
+            <div class="faq-content px-6 py-4 border-t border-gray-100 hidden">
+              <p class="text-gray-600">
+                是的，我们提供定制化解决方案服务。我们的专业团队会深入了解您的业务需求和痛点，为您量身定制最适合的解决方案。无论是对现有产品的功能扩展，还是全新系统的开发，我们都能提供专业的定制服务。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center">
+              <span class="text-white font-bold text-xl">FT</span>
+            </div>
+            <span class="text-xl font-bold text-white">未来科技</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            创新驱动未来，科技改变世界。我们致力于通过技术创新推动行业变革，为客户创造更大价值。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fa fa-weixin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fa fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fa fa-linkedin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fa fa-github text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">快速链接</h4>
+          <ul class="space-y-3">
+            <li><a href="index.html#about" class="text-gray-400 hover:text-white transition-colors">关于我们</a></li>
+            <li><a href="index.html#culture" class="text-gray-400 hover:text-white transition-colors">企业文化</a></li>
+            <li><a href="index.html#values" class="text-gray-400 hover:text-white transition-colors">企业价值观</a></li>
+            <li><a href="index.html#products" class="text-gray-400 hover:text-white transition-colors">产品服务</a></li>
+            <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">产品服务</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">人工智能解决方案</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">大数据分析平台</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">云计算服务</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">物联网平台</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">软件开发服务</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">联系我们</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start space-x-3">
+              <i class="fa fa-map-marker text-gray-400 mt-1"></i>
+              <span class="text-gray-400">北京市海淀区中关村科技园区8号楼</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i class="fa fa-phone text-gray-400 mt-1"></i>
+              <span class="text-gray-400">400-123-4567</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i class="fa fa-envelope text-gray-400 mt-1"></i>
+              <span class="text-gray-400">contact@futuretech.com</span>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i class="fa fa-clock-o text-gray-400 mt-1"></i>
+              <span class="text-gray-400">周一至周五 9:00-18:00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 未来科技. 保留所有权利.</p>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">隐私政策</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">服务条款</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">网站地图</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shadow-md');
+        navbar.classList.remove('bg-white/90');
+        navbar.classList.add('bg-white');
+      } else {
+        navbar.classList.remove('shadow-md');
+        navbar.classList.add('bg-white/90');
+        navbar.classList.remove('bg-white');
+      }
+    });
+    
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+    
+    // 服务卡片点击效果
+    const serviceCards = document.querySelectorAll('[data-service]');
+    serviceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const serviceType = card.getAttribute('data-service');
+        
+        // 清除所有卡片的选中状态
+        serviceCards.forEach(c => {
+          c.classList.remove('border-primary', 'shadow-lg');
+          c.classList.add('border-gray-100', 'shadow-md');
+        });
+        
+        // 设置当前卡片为选中状态
+        card.classList.remove('border-gray-100', 'shadow-md');
+        card.classList.add('border-primary', 'shadow-lg');
+        
+        // 选中对应的服务类型
+        const radioBtn = document.getElementById(`service-${serviceType}`);
+        if (radioBtn) {
+          radioBtn.checked = true;
+        }
+      });
+    });
+    
+    // FAQ 切换效果
+    const faqToggles = document.querySelectorAll('.faq-toggle');
+    faqToggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const content = toggle.nextElementSibling;
+        const icon = toggle.querySelector('i');
+        
+        // 切换内容显示状态
+        content.classList.toggle('hidden');
+        
+        // 切换图标旋转
+        if (content.classList.contains('hidden')) {
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+    
+    // 表单提交处理
+    const orderForm = document.getElementById('orderForm');
+    if (orderForm) {
+      orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // 这里可以添加表单验证和提交逻辑
+        alert('订单提交成功！我们的专业团队将尽快与您联系。');
+        orderForm.reset();
+      });
+    }
+  </script>
+</body>
+</html>
+    
